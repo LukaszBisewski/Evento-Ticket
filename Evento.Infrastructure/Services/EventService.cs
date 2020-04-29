@@ -1,4 +1,5 @@
-﻿using Evento.Core.Repositories;
+﻿using AutoMapper;
+using Evento.Core.Repositories;
 using Evento.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -11,37 +12,27 @@ namespace Evento.Infrastructure.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
-        public EventService(IEventRepository eventRepository)
+        private readonly IMapper _mapper;
+        public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
         public async Task<EventDto> GetAsync(Guid id)
         {
             var @event = await _eventRepository.GetAsync(id);
-            return new EventDto
-            {
-                Id = @event.Id,
-                Name = @event.Name
-            };
+            return _mapper.Map<EventDto>(@event);
         }
 
         public async Task<EventDto> GetAsync(string name)
         {
             var @event = await _eventRepository.GetAsync(name);
-            return new EventDto
-                {
-                    Id = @event.Id,
-                    Name = @event.Name
-                };
+            return _mapper.Map<EventDto>(@event);
         }
         public async Task<IEnumerable<EventDto>> BrowseAsync(string name = null)
         {
             var events = await _eventRepository.BrowseAsync(name);
-            return events.Select(@event => new EventDto
-            {
-                Id = @event.Id,
-                Name = @event.Name
-            });
+            return _mapper.Map<IEnumerable<EventDto>>(events);
         }
         public async Task AddTicketAsync(Guid eventId, int amount, decimal price)
         {

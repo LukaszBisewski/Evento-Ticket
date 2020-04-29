@@ -12,7 +12,7 @@ namespace Evento.Core.Domain
         public Guid? UserId { get; protected set; }
         public string Username { get; protected set; }
         public DateTime? PurchaseAt { get; protected set; }        //Data zakupu biletu
-        public bool Purchased => UserId.HasValue;  //Czy bilet został zakuipiony
+        public bool Purchased => UserId.HasValue;  //Czy bilet został zakupiony
 
         protected Ticket()
         {

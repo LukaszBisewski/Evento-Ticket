@@ -9,7 +9,11 @@ namespace Evento.Infrastructure.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private static readonly ISet<Event> _events = new HashSet<Event>();
+        private static readonly ISet<Event> _events = new HashSet<Event>
+        {
+            new Event(Guid.NewGuid(), "Event 1", "Event 1 description", DateTime.UtcNow.AddHours(2), DateTime.UtcNow.AddHours(4)),
+            new Event(Guid.NewGuid(), "Event 1", "Event 1 description", DateTime.UtcNow.AddHours(5), DateTime.UtcNow.AddHours(10))
+        };
 
         public async Task<Event> GetAsync(Guid id)
             => await Task.FromResult(_events.SingleOrDefault(x => x.Id == id));
@@ -18,7 +22,7 @@ namespace Evento.Infrastructure.Repositories
             => await Task.FromResult(_events.SingleOrDefault(x =>
                 x.Name.ToLowerInvariant() == name.ToLowerInvariant()));
 
-        public async Task<IEnumerable<Event>> BrowseAsync(string name = "") //przyjmuje ocjonalny parametr name i jeżeli podamy nazwę lub wycinek nazwy wykonując operację contains sprawdzamy czy Event zawiera wycinek z parametru name
+        public async Task<IEnumerable<Event>> BrowseAsync(string name = "") 
         {
             var events = _events.AsEnumerable();
             if (!string.IsNullOrWhiteSpace(name))
