@@ -1,0 +1,9 @@
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\bin\Debug\netcoreapp3.1\Evento.Core.deps.json
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\bin\Debug\netcoreapp3.1\Evento.Core.dll
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\bin\Debug\netcoreapp3.1\Evento.Core.pdb
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.csprojAssemblyReference.cache
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.csproj.CoreCompileInputs.cache
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.AssemblyInfoInputs.cache
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.AssemblyInfo.cs
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.dll
+C:\Users\Łukasz\source\repos\Repo\Evento-Tickets\Evento.Core\obj\Debug\netcoreapp3.1\Evento.Core.pdb
