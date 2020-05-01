@@ -22,8 +22,8 @@ namespace Evento.Core.Domain
         public Event(Guid id, string name, string description, DateTime startDate, DateTime endDate)
         {
             Id = id;
-            Name = name;
-            Description = description;
+            SetName(name);
+            SetDescription(description);
             StartDate = startDate;
             EndDate = endDate;
             CreatedAt = DateTime.UtcNow;
@@ -40,5 +40,26 @@ namespace Evento.Core.Domain
             }
 
         }
+        public void SetName(string name)                    //to update Event Name
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new Exception($"Event with id: '{Id}' can not have an empty name.");
+            }
+            Name = name;
+            UpdateAt = DateTime.UtcNow;
+        }
+
+        public void SetDescription(string description)  //to update Event Description
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new Exception($"Event with id: '{Id}' can not have an empty description.");
+            }
+            Description = description;
+            UpdateAt = DateTime.UtcNow;
+        }
+
     }
 }
+
