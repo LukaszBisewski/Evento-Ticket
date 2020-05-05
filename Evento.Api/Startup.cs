@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -68,9 +69,9 @@ namespace Evento.Api
                 cfg.RequireHttpsMetadata = false;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidIssuer = Configuration["JwtSettings:Issuer"],
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSettings:Key"]))
                 };
         });
 
@@ -92,7 +93,10 @@ namespace Evento.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            if (env.IsDevelopment())
+            {
+                IdentityModelEventSource.ShowPII = true;
+            }
             app.UseRouting();
 
             app.UseHttpsRedirection();
