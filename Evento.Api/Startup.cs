@@ -82,6 +82,7 @@ namespace Evento.Api
             services.AddScoped<IEventService, EventService>();
             services.AddSingleton<IJwtHandler, JwtHandler>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITicketService, TicketService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddAuthorization(x => x.AddPolicy("HasAdminRole", p => p.RequireRole("admin")));
 
