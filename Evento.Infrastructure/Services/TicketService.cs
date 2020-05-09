@@ -5,6 +5,8 @@ using Evento.Infrastructure.DTO;
 using Evento.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@ namespace Evento.Infrastructure.Services
 {
     public class TicketService : ITicketService
     {
+
         private IUserRepository _userRepository;
         private IEventRepository _eventRepository;
         private IMapper _mapper;
@@ -45,5 +48,13 @@ namespace Evento.Infrastructure.Services
             await _eventRepository.UpdateAsync(@event);
         }
 
+        public async Task<IEnumerable<TicketDto>> GetForUserAsync(Guid userId)
+        {
+            var user = await _userRepository.GetOrFailAsync(userId);
+            var events = await _eventRepository.BrowseAsync();
+            var tickets = events.SelectMany(x => x.GetTicketPurchasedUser(user));
+
+            return _mapper.Map<IEnumerable<TicketDto>>(tickets);
+        }
     }
 }

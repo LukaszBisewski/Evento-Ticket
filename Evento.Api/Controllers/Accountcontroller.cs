@@ -12,9 +12,11 @@ namespace Evento.Api.Controllers
     public class Accountcontroller : ApiControllerBase
     {
         private readonly IUserService _userService;
-        public Accountcontroller (IUserService userService)
+        private readonly ITicketService _ticketService;
+        public Accountcontroller (IUserService userService, ITicketService ticketService)
         {
             _userService = userService;
+            _ticketService = ticketService;
         }
         [HttpGet]
         [Authorize]
@@ -22,10 +24,9 @@ namespace Evento.Api.Controllers
             => Json(await _userService.GetAccountAsync(UserId));
 
         [HttpGet("tickets")]
+        [Authorize]
         public async Task<IActionResult> GetTickets()
-        {
-            throw new NotImplementedException();
-        }
+            => Json(await _ticketService.GetForUserAsync(UserId));
 
         [HttpPost("register")]
         public async Task<IActionResult> Post([FromBody]Register command)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace Evento.Core.Domain
 {
@@ -77,7 +77,7 @@ namespace Evento.Core.Domain
 
         public void CancelPurchasedTickets(User user, int amount)
         {
-            var tickets = PurchasedTickets.Where(x => x.UserId == user.Id);
+            var tickets = GetTicketPurchasedUser(user);
             if (tickets.Count() < amount)
             {
                 throw new Exception($"Not enough purchased tickets to be canceled ({amount}) by user: '{user.Name}'.");
@@ -87,7 +87,9 @@ namespace Evento.Core.Domain
                 ticket.Cancel();
             }
         }
+        public IEnumerable<Ticket> GetTicketPurchasedUser(User user)
+            => PurchasedTickets.Where(x => x.UserId == user.Id);
+        }
     }
-}
 
 
