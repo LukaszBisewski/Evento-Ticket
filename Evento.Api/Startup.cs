@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace Evento.Api
 {
@@ -74,7 +76,7 @@ namespace Evento.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSettings:Key"]))
                 };
         });
-
+            ;
 
 
             services.AddScoped<IEventRepository, EventRepository>();
@@ -99,7 +101,6 @@ namespace Evento.Api
             {
                 IdentityModelEventSource.ShowPII = true;
             }
-            app.UseRouting();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

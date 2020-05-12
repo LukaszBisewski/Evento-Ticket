@@ -3,6 +3,9 @@ using Evento.Core.Domain;
 using Evento.Core.Repositories;
 using Evento.Infrastructure.DTO;
 using Evento.Infrastructure.Extensions;
+using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,13 @@ namespace Evento.Infrastructure.Services
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
+        //private readonly ILogger _logger;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
+            
         }
         public async Task<EventDetailsDto> GetAsync(Guid id)
         {
@@ -33,6 +39,7 @@ namespace Evento.Infrastructure.Services
         }
         public async Task<IEnumerable<EventDto>> BrowseAsync(string name = null)
         {
+            Logger.Info("Nlog Testing ");
             var events = await _eventRepository.BrowseAsync(name);
             return _mapper.Map<IEnumerable<EventDto>>(events);
         }
